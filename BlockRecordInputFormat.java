@@ -28,7 +28,7 @@ public class BlockRecordInputFormat extends FileInputFormat<Object,BytesWritable
     long pos = 0;
     long end = 0;
     int chunk_size = 0;
-    int block_max = 2048;
+    int block_max = 20480;
     
     @Override
     public void initialize(InputSplit split, TaskAttemptContext context) throws
