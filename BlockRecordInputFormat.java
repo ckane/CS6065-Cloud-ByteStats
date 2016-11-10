@@ -10,6 +10,7 @@ import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.fs.FileSystem;
 import java.io.IOException;
+import java.io.EOFException;
 
 public class BlockRecordInputFormat extends FileInputFormat<Object,BytesWritable> {
   public RecordReader<Object,BytesWritable> createRecordReader(InputSplit split,
@@ -68,7 +69,9 @@ public class BlockRecordInputFormat extends FileInputFormat<Object,BytesWritable
         return false;
       }
 
-      fsd.readFully(pos, input);
+      try {
+        fsd.readFully(pos, input);
+      } catch(EOFException e) {};
       val = new BytesWritable(input);
       pos += input.length;
 
